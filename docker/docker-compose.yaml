@@ -1,0 +1,27 @@
+version: '3'
+
+
+services:
+  neo4j:
+    platform: linux/x86_64
+    image: neo4j:4.3.3-community #4.3.3-community  latest
+    container_name: neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    networks:
+      - ecosystem_network
+    environment:
+      - NEO4J_AUTH=neo4j/eco_system
+      - NEO4J_dbms_memory_pagecache_size=512M
+    volumes:
+      - /tmp/neo4j/data:/data
+      - /tmp/neo4j/logs:/logs
+      - /tmp/neo4j/import:/var/lib/neo4j/import
+      - /tmp/neo4j/plugins:/plugins
+
+
+
+networks:
+  ecosystem_network:
+    driver: bridge
